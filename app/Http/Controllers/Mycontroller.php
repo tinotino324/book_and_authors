@@ -12,7 +12,13 @@ class Mycontroller extends Controller
    
     public function index()
     {
-        return view('sidebar');
+        $Model                  = New Author();
+        $bookModel              = New Book();
+        $books                  = $bookModel->getbooks();
+        $authors                = $Model->getAuthors();
+        $data['author_counts']  = !empty($authors) ? count($authors) : 0;
+        $data['book_counts']    = !empty($books) ? count($books) : 0;
+        return view('dashboard.index', $data);
     }
 
     public function author()
@@ -20,7 +26,7 @@ class Mycontroller extends Controller
         $Model              = New Author();
         $authors            = $Model->getAuthors();
         $data['counts']     = !empty($authors) ? count($authors) : 0;
-        return view('authors', $data);
+        return view('authors.index', $data);
     }
 
     public function chatbot()
@@ -28,7 +34,7 @@ class Mycontroller extends Controller
         $Model              = New Author();
         $authors            = $Model->getAuthors();
         $data['counts']     = !empty($authors) ? count($authors) : 0;
-        return view('chatbot', $data);
+        return view('chatbot.index', $data);
     }
 
     public function books()
@@ -40,7 +46,7 @@ class Mycontroller extends Controller
         $data['authors']    = $authors;
         $data['counts']     = !empty($books) ? count($books) : 0;
 
-        return view('books', $data);
+        return view('books.index', $data);
     }
 
     public function save_author(Request $request)
@@ -109,9 +115,15 @@ class Mycontroller extends Controller
 
     public function get_authors(Request $request)
     {
+
+        $offset             = $request->post('offset');
+        $length             = $request->post('length');
         $Model              = new Author();
         $bookModel          = new book();
-        $authors            = $Model->getAuthors();
+        $params['offset']   = $offset;
+        $params['length']   = $length;
+        $authors            = $Model->getAuthors_listing($params);
+        $total_authors      = $Model->getAuthors();
         $books              = $bookModel->getbooks();
         $data               = [];
         $book_data          = [];
@@ -158,14 +170,23 @@ class Mycontroller extends Controller
 
         }
 
+        $response['total_counts']   = count($total_authors);
+        $response['listing_counts'] = count($authors);
+        $response['offset']         = $offset;
+        $response['length']         = $length;
         echo json_encode($response);die;
     }
 
     public function get_books(Request $request)
     {
-        $Model         = new book();
-        $books         = $Model->getbooks();
-        $data          = [];
+        $offset             = $request->post('offset');
+        $length             = $request->post('length');
+        $Model              = new book();
+        $total_books        = $Model->getbooks();
+        $params['offset']   = $offset;
+        $params['limit']    = $length;    
+        $books              = $Model->getbooks_listing($params);
+        $data               = [];
 
         if(!empty($books))
         {
@@ -174,7 +195,7 @@ class Mycontroller extends Controller
                 $book['date']           = date('d-M-Y', strtotime($book['created_at']));
                 $book['create_date']    = date('D M Y', strtotime($book['created_at']));
                 $book['update_date']    = date('D M Y', strtotime($book['updated_at']));
-                $data[]         = $book;
+                $data[]                 = $book;
             }
         }
         $response['status'] = FALSE;
@@ -186,6 +207,10 @@ class Mycontroller extends Controller
 
         }
 
+        $response['total_counts']   = count($total_books);
+        $response['listing_counts'] = count($books);
+        $response['offset']         = $offset;
+        $response['length']         = $length;
         echo json_encode($response);die;
     }
 
