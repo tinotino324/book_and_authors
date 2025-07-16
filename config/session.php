@@ -97,7 +97,11 @@ return [
     | define the cache store which should be used to store the session data
     | between requests. This must match one of your defined cache stores.
     |
+<<<<<<< HEAD
     | Affects: "apc", "dynamodb", "memcached", "redis"
+=======
+    | Affects: "dynamodb", "memcached", "redis"
+>>>>>>> 6cbfe691415e3729ab06d301995c9563042bb8a2
     |
     */
 

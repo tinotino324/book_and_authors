@@ -37,6 +37,24 @@ class Book extends Model
         return $query->get();
     }
 
+    public function getbooks_listing($filters = [])
+    {
+        $offset = isset($filters['offset']) ? $filters['offset'] : 0;
+        $limit  = isset($filters['limit']) ? $filters['limit'] : 10;
+        unset($filters['offset'], $filters['limit']);
+
+        $query  = self::query();
+        $query->leftJoin('author_names', 'author_names.authorID', '=', 'book_names.authorID');
+
+        if (!empty($filters)) {
+            $query->where($filters);
+        }
+        
+        $query->skip($offset)->take($limit);
+        $query->orderby('bookID', 'DESC');
+        return $query->get();
+    }
+
     public function deletebook($id)
     {
         return self::destroy($id);

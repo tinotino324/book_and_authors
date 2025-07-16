@@ -1,3 +1,24 @@
+Open your browser and visit:
+
+http://127.0.0.1:8000/index
+
+📚 Book Management System (Laravel)
+A simple Laravel project for managing books and authors with a modern, clean dashboard.
+🚀 Features
+📖 Manage Books — Create, update, delete, and list books.
+
+✍️ Manage Authors — Create, update, delete, and list authors.
+
+📊 Dashboard — View total books and authors in stylish cards.
+
+🔎 Search UI — Centered search bar similar to Google style.
+
+🖥️ Responsive Design — Sidebar with header, works on all devices.
+
+💡 Modern UI — Built with Bootstrap 5.
+
+🗂️ Project Structure
+
 # 📚 Laravel AuthorBook Management Application
 
 This Laravel application is designed to manage **Authors** and their **Books**, supporting full CRUD functionality and an integrated chatbot for real-time data querying.
@@ -41,3 +62,42 @@ This application allows users to:
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+app/
+├── Http/
+│    └── Controllers/
+│         └── Mycontroller.php
+├── Models/
+│    ├── Author.php
+│    └── Book.php
+├── Helpers/
+│      └── form_helper.php
+
+
+resources/views/
+├── layouts/
+|    ├── app.blade.php
+│    ├── header.blade.php
+│    └── sidebar.blade.php
+├── books/
+│    └── index.blade.php
+├── authors/
+│    └── index.blade.php
+├── chatbot/
+│    └── index.blade.php
+├── dashboard/
+│    └── index.blade.php
+
+routes/
+└── web.php
+
+database/Migrations/
+└── author_books.php
+
+public/
+└── datatable.js
+
+Command :
+1. php artisan serve
+2. php artisan migrate:fresh

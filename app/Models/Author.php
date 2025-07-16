@@ -27,15 +27,34 @@ class Author extends Model
     public function getAuthors($filters = [])
     {
         $query = self::query();
+        // $query->leftjoin('book_names', 'book_names.authorID', '=' , 'author_names.authorID');
+
+        if (!empty($filters)) {
+            $query->where($filters);
+        }
+
+        $query->orderBy('authorID', 'DESC');
+        return $query->get();
+        // echo dd($query->toSql()); die;
+    }
+
+    public function getAuthors_listing($filters = [])
+    {
+        $offset = isset($filters['offset']) ? $filters['offset'] : 0 ;
+        $length = isset($filters['length']) ? $filters['length'] : 10 ;
+        unset($filters['offset'], $filters['length']);
+        $query = self::query();
 
         // $query->leftjoin('book_names', 'book_names.authorID', '=' , 'author_names.authorID');
 
         if (!empty($filters)) {
             $query->where($filters);
         }
-        
-        $query->orderby('authorID', 'DESC');
+
+        $query->skip($offset)->take($length);
+        $query->orderBy('authorID', 'DESC');
         return $query->get();
+        // echo dd($query->toSql()); die;
     }
 
     public function deleteAuthor($id)

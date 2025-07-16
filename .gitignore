@@ -1,4 +1,25 @@
+<<<<<<< HEAD
 /.phpunit.cache
+=======
+<<<<<<< HEAD
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+=======
+/.phpunit.cache
+>>>>>>> 354ae9adec9aa30ec5a91d9e27f3424606b9ca8c
+>>>>>>> 6cbfe691415e3729ab06d301995c9563042bb8a2
 /node_modules
 /public/build
 /public/hot
@@ -6,6 +27,14 @@
 /storage/*.key
 /storage/pail
 /vendor
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+Homestead.json
+Homestead.yaml
+Thumbs.db
+=======
+>>>>>>> 6cbfe691415e3729ab06d301995c9563042bb8a2
 .env
 .env.backup
 .env.production
@@ -21,3 +50,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+<<<<<<< HEAD
+=======
+>>>>>>> 354ae9adec9aa30ec5a91d9e27f3424606b9ca8c
+>>>>>>> 6cbfe691415e3729ab06d301995c9563042bb8a2
